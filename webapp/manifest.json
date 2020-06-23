@@ -1,0 +1,133 @@
+{
+	"_version": "1.5.0",
+	"sap.app": {
+		"id": "com.sap.training.ux402.fullscreenUX402_FullScreenExercise",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "servicecatalog.connectivityComponent",
+			"version": "0.0.0"
+		},
+		"dataSources": {
+			"RMTSAMPLEFLIGHT_2": {
+				"uri": "/sap/opu/odata/iwbep/RMTSAMPLEFLIGHT_2/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": ["sap_hcb", "sap_belize"]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "com.sap.training.ux402.fullscreen.UX402_FullScreenExercise.view.Main",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.ushell": {},
+				"sap.collaboration": {},
+				"sap.ui.comp": {},
+				"sap.uxap": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.sap.training.ux402.fullscreen.UX402_FullScreenExercise.i18n.i18n"
+				}
+			},
+			"": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "RMTSAMPLEFLIGHT_2",
+				"preload": true
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewPath": "com.sap.training.ux402.fullscreen.UX402_FullScreenExercise.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"viewType": "XML",
+				"transition": "slide",
+				"bypassed": {
+					"target": ["notFound"]
+				}
+			},
+			"routes": [{
+				"name": "overview",
+				"pattern": "",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["overview"]
+			}, {
+				"name": "flights",
+				"pattern": "carriers/{carrierId}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["flights"]
+			}],
+			"targets": {
+				"overview": {
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "Carrier",
+					"viewLevel": 1
+				},
+				"flights": {
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "Flights",
+					"viewLevel": 2
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"transition": "show"
+				}
+			}
+		}
+	}
+}
